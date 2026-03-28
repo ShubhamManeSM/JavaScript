@@ -1,3 +1,4 @@
+// Assignment
 let totalEvents = 3;
 
 let eventOneTitle = "Music Concert";
