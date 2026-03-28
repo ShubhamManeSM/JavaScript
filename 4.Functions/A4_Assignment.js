@@ -1,3 +1,4 @@
+// Assignment
 let product1 = "Laptop";
 let price1 = 999;
 let category1 = "Electronics";

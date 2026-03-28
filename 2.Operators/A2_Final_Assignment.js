@@ -1,3 +1,4 @@
+// Assignment
 console.log("Indian Movie Ticket Sales Report");
 console.log("--------------------------------");
 let movie1TicketsSold = 150;
