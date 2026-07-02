@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Vanila JS</title>
+  </head>
+  <body>
+    <label>Choose a movie genre:</label>
+    <select id="genreSelect">
+      <option value="Action">Action</option>
+      <option value="Comedy">Comedy</option>
+      <option value="Drama">Drama</option>
+    </select>
+    <p id="genreResult"></p>
+
+    <label>Select a weather condition:</label>
+    <select id="weatherSelect">
+      <option value="Sunny">Sunny</option>
+      <option value="Rainy">Rainy</option>
+      <option value="Snowy">Snowy</option>
+    </select>
+    <p id="weatherResult"></p>
+
+    <label>Select a language:</label>
+    <select id="selectLanguage">
+      <option value="English">English</option>
+      <option value="Spanish">Spanish</option>
+      <option value="French">French</option>
+    </select>
+    <button id="displayGreetBtn">Display Greeting</button>
+    <p id="languageResult"></p>
+
+    <label>Choose a musical instrument:</label>
+    <select id="selectInstrument">
+      <option value="Piano">Piano</option>
+      <option value="Guitar">Guitar</option>
+      <option value="Violin">Violin</option>
+    </select>
+    <button id="displayFunBtn">Display Fun Fact</button>
+    <p id="instrumentResult"></p>
+
+    <label>Select a pet:</label>
+    <select id="selectPet">
+      <option value="Dog">Dog</option>
+      <option value="Cat">Cat</option>
+      <option value="Fish">Fish</option>
+    </select>
+    <button id="displayPetBtn">Display Pet Description</button>
+    <p id="petResult"></p>
+
+
+    <script>
+      const selectGenre = document.getElementById("genreSelect")
+      const genreResult = document.getElementById("genreResult")
+
+      selectGenre.addEventListener("change",function(){
+        const selectedGenre = selectGenre.value
+        const movieRecommendations = {
+            Action: "The Dark Knight",
+            Comedy: "Superbad",
+            Drama: "The Shawshank Redemption"
+          };
+        const recommendedMovie = movieRecommendations[selectedGenre]
+        if(recommendedMovie){
+          genreResult.textContent = `Recommended ${selectedGenre} Movie: ${recommendedMovie}`
+        }
+      })
+
+      const selectWeather = document.getElementById("weatherSelect")
+      const weatherResult = document.getElementById("weatherResult")
+
+      selectWeather.addEventListener("change",function(){
+        const selectedWeather = selectWeather.value
+        const weatherRecommendations = {
+          Sunny: "Outdoor Activity Suggestion: Picnic in the park",
+          Rainy: "Activity Suggestion: Movie day indoors",
+          Snowy: "Outdoor Activity Suggestion: Build a snowman"
+        }
+        const recommendedWeather = weatherRecommendations[selectedWeather]
+        if(recommendedWeather){
+          weatherResult.textContent = recommendedWeather
+        }
+      })
+
+      const selectLanguage = document.getElementById("selectLanguage")
+      const displayGreetBtn = document.getElementById("displayGreetBtn")
+      const languageResult = document.getElementById("languageResult")
+
+      displayGreetBtn.addEventListener("click",function(){
+        const selectedLanguage = selectLanguage.value
+        const languageRecommendation = {
+          English: "Hello!",
+          Spanish: "Hola!",
+          French: "Bonjour!"
+        }
+        const recommendedLanguage = languageRecommendation[selectedLanguage]
+        if(languageRecommendation){
+          languageResult.textContent = `Common Greeting: ${recommendedLanguage}`
+        }
+      })
+
+      const selectInstrument = document.getElementById("selectInstrument")
+      const displayFunBtn = document.getElementById("displayFunBtn")
+      const instrumentResult = document.getElementById("instrumentResult")
+
+      displayFunBtn.addEventListener("click",function(){
+        const selectedInstrument = selectInstrument.value
+        const instrumentRecommendation = {
+          Piano: "The piano has 88 keys.",
+          Guitar: "The guitar is one of the most popular instruments in the world.",
+          Violin: "The violin is a string instrument known for its sweet sound."
+        }
+        const recommendedInstument = instrumentRecommendation[selectedInstrument]
+        if(instrumentRecommendation){
+          instrumentResult.textContent = `Fun Fact: ${recommendedInstument}`
+        }
+      })
+
+      const selectPet = document.getElementById("selectPet")
+      const displayPetBtn = document.getElementById("displayPetBtn")
+      const petResult = document.getElementById("petResult")
+
+      displayPetBtn.addEventListener("click",function(){
+        const selectedPet = selectPet.value
+        const petRecommendation = {
+          Dog: "Dogs are loyal and friendly companions.",
+          Cat: "Cats are independent and playful.",
+          Fish: "Fish are low-maintenance and peaceful pets."
+        }
+        const recommendedPet = petRecommendation[selectedPet]
+        if(petRecommendation){
+          petResult.textContent = `Pet Description: ${recommendedPet}`
+        }
+      })
+    </script>
+  </body>
+</html>

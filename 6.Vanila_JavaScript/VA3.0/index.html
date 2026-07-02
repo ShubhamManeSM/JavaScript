@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width"/>
+    <title>Vanila JS</title>
+  </head>
+  <body>
+    <h1>User Profile Form</h1>
+    <form id="userProfileForm">
+    <label for="userName">Enter your Full Name:</label><br>
+    <input type="text" id="userName">
+    <br><br>
+
+    <label for="fullAddress">Enter Full Address:</label><br>
+    <textarea id="fullAddress" rows="5" cols="30"></textarea>
+    <br><br>
+
+    <label>Select your Gender:</label><br>
+    <label for="male"><input type="radio" name="gender" value="Male" id="male">Male</label><br>
+    <label for="female"><input type="radio" name="gender" value="Female" id="female">Female</label><br>
+    <label for="others"><input type="radio" name="gender" value="Others" id="others">Others</label><br>
+    <br>
+
+    <label>Select multiple Intrests:</label><br>
+    <label for="reading"><input type="checkbox" name="intrests" value="Reading" id="reading">Reading</label><br>
+    <label for="gardening"><input type="checkbox" name="intrests" value="Gardening" id="gardening">Gardening</label><br>
+    <label for="painting"><input type="checkbox" name="intrests" value="Painting" id="painting">Painting</label><br>
+    <br>
+
+    <label>Select Favourite Color:</label><br>
+    <select id="colorSelect">
+      <option value="Red">Red</option>
+      <option value="Blue">Blue</option>
+      <option value="Green">Green</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+  <div id="formResult"></div>
+
+  <script>
+    const userProfileForm = document.getElementById("userProfileForm")
+    userProfileForm.addEventListener("submit",function(){
+      event.preventDefault()
+      const userName = document.getElementById("userName").value
+      const fullAddress = document.getElementById("fullAddress").value
+      const gender = document.querySelector('input[name="gender"]:checked').value
+      const intrests = document.querySelectorAll('input[name="intrests"]:checked')
+      let selectedIntrest = []
+      for(let i = 0; i <intrests.length; i++){
+        selectedIntrest.push(intrests[i].value)
+      }
+      const favColor = document.getElementById("colorSelect").value
+
+      const userInputValues = `<h2>Submited Information</h2>
+      <p>Name: ${userName}</p>
+      <p>Full Address: ${fullAddress}</p>
+      <p>Gender: ${gender}</p>
+      <p>Intrests: ${selectedIntrest.join(', ')}</p>
+      <p>Favourite Color: ${favColor}</p>
+      `
+      const divElement = document.getElementById("formResult")
+      divElement.innerHTML = userInputValues
+    })
+  </script>
+  </body>
+</html>

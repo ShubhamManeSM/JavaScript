@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Vanila JS</title>
+  </head>
+  <body>
+    <h1>User Waitlist Form</h1>
+    <form id="userWaitlistForm">
+      <label for="userName"><strong>Full Name:</strong></label>
+      <input type="text" id="userName">
+      <br><br>
+      <label for="userPhoneNum"><strong>Phone Number:</strong></label>
+      <input type="number" id="userPhoneNum">
+      <br><br>
+      <label for="userEmailId"><strong>Email Id:</strong></label>
+      <input type="email" id="userEmailId">
+      <br><br>
+      <label for=""><strong>Gender:</strong></label> <br>
+      <input type="radio" name="gender" value="Male"> Male <br>
+      <input type="radio" name="gender" value="Female"> Female <br>
+      <input type="radio" name="gender" value="Other"> Other <br>
+      <br>
+      <label for=""><strong>Are you a college graduate?:</strong></label> <br>
+      <input type="radio" name="graduate" value="Yes"> Yes <br>
+      <input type="radio" name="graduate" value="No"> No <br>
+      <input type="radio" name="graduate" value="Dropout"> Dropout <br>
+      <br>
+      <label for="selectWorking"><strong>Are you working anywhere full-time or part-time?:</strong></label><br>
+      <select id="selectWorking">
+        <option value="Working Full Time">Working Full Time</option>
+        <option value="Working Part Time">Working Part Time</option>
+        <option value="Not Working Anywhere">Not Working Anywhere</option>
+      </select>
+      <br><br>
+      <label for="userTextarea"><strong>Why do you want to learn web development?:</strong></label><br>
+      <textarea id="userTextarea" rows="4" cols="50"></textarea>
+      <br><br>
+      <label for=""><strong>How did you come to know about us?</strong></label><br>
+      <input type="checkbox" name="knowAboutUs" value="Youtube"> Youtube <br>
+      <input type="checkbox" name="knowAboutUs" value="Instagram"> Instagram <br>
+      <input type="checkbox" name="knowAboutUs" value="LinkedIn"> LinkedIn <br>
+      <input type="checkbox" name="knowAboutUs" value="Twitter"> Twitter <br>
+      <input type="checkbox" name="knowAboutUs" value="Friends and Family"> Friends and Family <br>
+      <input type="checkbox" name="knowAboutUs" value="Other"> Other <br>
+      <br>
+      <input type="checkbox" id="confirmCheckbox"><strong> I confirm that all information in this form is factually true.</strong>
+      <br><br>
+      <input type="submit" value="Submit Details">
+    </form>
+    <div id="formResult"></div>
+
+    <script>
+      const userWaitlistForm = document.getElementById("userWaitlistForm")
+      userWaitlistForm.addEventListener("submit",function(){
+        event.preventDefault();
+
+        const userName = document.getElementById("userName").value
+        const userPhoneNum = document.getElementById("userPhoneNum").value
+        const userEmailId = document.getElementById("userEmailId").value
+        const gender = document.querySelector('input[name="gender"]:checked').value
+        const graduate = document.querySelector('input[name="graduate"]:checked').value
+        const selectWorking = document.getElementById("selectWorking").value
+        const userTextarea = document.getElementById("userTextarea").value
+        const knowAboutUs = document.querySelectorAll('input[name="knowAboutUs"]:checked')
+        let selectedKnowAboutUs = []
+        for(let i = 0; i < knowAboutUs.length; i++){
+          selectedKnowAboutUs.push(knowAboutUs[i].value)
+        }
+        const confirmCheckbox = document.getElementById("confirmCheckbox")
+        if(!confirmCheckbox.checked){
+          confirmCheckbox = ''
+        }
+
+        const userWaitlistValues = `<h2>Details Submitted:</h2>
+        <p><strong>Name:</strong> ${userName}</p>
+        <p><strong>Phone Number:</strong> ${userPhoneNum}</p>
+        <p><strong>Email ID:</strong> ${userEmailId}</p>
+        <p><strong>Gender:</strong> ${gender}</p>
+        <p><strong>Are you a college graduate?:</strong> ${graduate}</p>
+        <p><strong>Are you working anywhere full-time or part-time?:</strong> ${selectWorking}</p>
+        <p><strong>Why do you want to learn web development?:</strong> ${userTextarea}</p>
+        <p><strong>How did you come to know about us?:</strong> ${selectedKnowAboutUs}</p>
+      `
+      const divElement = document.getElementById("formResult")
+      divElement.innerHTML = userWaitlistValues
+      })
+    </script>
+  </body>
+</html>

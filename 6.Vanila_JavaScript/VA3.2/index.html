@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Vanila JS</title>
+  </head>
+  <body>
+    <h1>Product Order Form</h1>
+    <form id="userProductDetails">
+      <label for="selectProduct">Product Name:</label>
+      <select id="selectProduct">
+        <option value="ProductA">Product A</option>
+        <option value="ProductB">Product B</option>
+        <option value="ProductC">Product C</option>
+      </select>
+
+      <br><br>
+
+      <label for="productQuantity">Quantity:</label>
+      <input type="number" id="productQuantity" value="1">
+      <br><br>
+
+      <label for="shippingAddress">Shipping Address:</label><br>
+      <textarea id="shippingAddress" rows="5" cols="50"></textarea>
+      <br><br>
+
+      <label for="">Payment Method:</label><br>
+      <input type="radio" name="payment" value="Credit Card"> Credit Card <br>
+      <input type="radio" name="payment" value="PayPal"> PayPal <br>
+      <input type="radio" name="payment" value="Bank Transfer"> Bank Transfer <br>
+
+      <br>
+
+      <label for="selectDeliverySpeed">Delivery Speed:</label>
+      <select id="selectDeliverySpeed">
+        <option value="Standard">Standard</option>
+        <option value="Express">Express</option>
+        <option value="Same Day">Same Day</option>  
+      </select>
+
+      <br><br>
+
+      <input type="submit" value="Place Order">
+    </form>
+    <div id="formResult"></div>
+
+    <script>
+      const userProductDetails = document.getElementById("userProductDetails");
+      userProductDetails.addEventListener("submit", function(){
+      event.preventDefault(); 
+
+      const product = document.getElementById("selectProduct").value;
+      const quantity = document.getElementById("productQuantity").value;
+      const address = document.getElementById("shippingAddress").value;
+      const payment = document.querySelector('input[name="payment"]:checked').value;
+      const delivery = document.getElementById("selectDeliverySpeed").value;
+
+      const userProductValues = `<h2>Order Details:</h2>
+      <p><strong>Name:</strong> ${product}</p>
+      <p><strong>Quantity:</strong> ${quantity}</p>
+      <p><strong>Shipping Address:</strong> ${address}</p>
+      <p><strong>Payment Method:</strong> ${payment}</p>
+      <p><strong>Delivery Speed:</strong> ${delivery}</p>
+      `
+      const divElement = document.getElementById("formResult")
+      divElement.innerHTML = userProductValues
+     
+});
+    </script>
+  </body>
+</html>
