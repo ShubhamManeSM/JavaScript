@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Vanila JS</title>
+  </head>
+  <body>
+    <label>Choose your gender:</label><br>
+    <input name="gender" type="radio" value="Male">Male <br>
+    <input name="gender" type="radio" value="Female">Female <br>
+    <input name="gender" type="radio" value="Others">Others
+    <p id="genderResult"></p>
+
+    <label>Choose your meal preference:</label> <br>
+    <input type="radio" name="meal" value="Vegetarian"> Vegetarian <br>
+    <input type="radio" name="meal" value="Non-vegetarian"> Non-vegetarian <br> 
+    <p id="mealPreferenceResult"></p>
+
+    <label>Choose your size</label> <br>
+    <input type="radio" name="size" value="Small"> Small <br>
+    <input type="radio" name="size" value="Medium"> Medium <br> 
+    <input type="radio" name="size" value="Large"> Large <br> 
+    <p id="sizeResult"></p>
+
+    <script>
+      const genderRadioButton = document.getElementsByName("gender")
+      const genderResult = document.getElementById("genderResult")
+
+      for(let i = 0; i < genderRadioButton.length;i++){
+        genderRadioButton[i].addEventListener("change",function(){
+          const selectedRadioButton = document.querySelector('input[name="gender"]:checked').value
+          genderResult.textContent = `Selected Gender: ${selectedRadioButton}`
+        })
+      }
+
+      const mealRadioButtons = document.getElementsByName("meal")
+      const mealPreferenceResult = document.getElementById("mealPreferenceResult")
+
+      for(let i = 0; i < mealRadioButtons.length;i++){
+        mealRadioButtons[i].addEventListener("change",function(){
+          const selectedMealPreference = document.querySelector('input[name="meal"]:checked').value
+          mealPreferenceResult.textContent = `Selected Meal: ${selectedMealPreference}`
+        })
+      }
+
+      const sizeRadioButtons = document.getElementsByName("size")
+      const sizeResult = document.getElementById("sizeResult")
+
+      for(let i = 0; i < sizeRadioButtons.length;i++){
+        sizeRadioButtons[i].addEventListener("change",function(){
+          const selectedSize = document.querySelector('input[name="size"]:checked').value
+          sizeResult.textContent = `Selected Size: ${selectedSize}`
+        })
+      }
+    </script>
+  </body>
+</html>

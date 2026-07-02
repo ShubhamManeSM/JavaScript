@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Vanila JS</title>
+  </head>
+  <body>
+    <label>Program 1: Select multiple sports:</label>
+    <input type="checkbox" name="sports" value="soccer">Soccer 
+    <input type="checkbox" name="sports" value="basketball">Basketball
+    <input type="checkbox" name="sports" value="tennis">Tennis
+    <button id="displaySportsBtn">Display Selected Sports</button>
+    <p id="sportsResult"></p>
+
+    <label>Program 2: Choose multiple vacation destination:</label>
+    <input type="checkbox" name="vacation" value="beach">Beach 
+    <input type="checkbox" name="vacation" value="mountain">Mountain
+    <input type="checkbox" name="vacation" value="city">City
+    <button id="displayVacationBtn">Display Selected Destinations</button>
+    <p id="vacationResult"></p>
+
+    <label>Program 3: Select multiple movie genres:</label>
+    <input type="checkbox" name="movie" value="action">Action 
+    <input type="checkbox" name="movie" value="comedy">Comedy
+    <input type="checkbox" name="movie" value="drama">Drama
+    <button id="displayGenresBtn">Display Selected Genres</button>
+    <p id="genresResult"></p>
+
+    <label>Program 4: Choose multiple items from a restaurant menu:</label>
+    <input type="checkbox" name="items" value="burger">Burger 
+    <input type="checkbox" name="items" value="pizza">Pizza
+    <input type="checkbox" name="items" value="salad">Salad
+    <button id="displayItemsBtn">Display Selected Items</button>
+    <p id="itemsResult"></p>
+
+    <label>Program 5: Select multiple fruits:</label>
+    <input type="checkbox" name="fruits" value="apple">Apple 
+    <input type="checkbox" name="fruits" value="banana">Banana
+    <input type="checkbox" name="fruits" value="orange">Orange
+    <button id="displayFruitsBtn">Display Selected Fruits</button>
+    <p id="fruitsResult"></p>
+
+    <script>
+      const sportsCheckBoxes = document.getElementsByName("sports")
+      const displaySportsBtn = document.getElementById("displaySportsBtn")
+      const sportsResult = document.getElementById("sportsResult")
+
+      displaySportsBtn.addEventListener("click",function(){
+        const selectedSports = [];
+
+        for(let i = 0; i < sportsCheckBoxes.length; i++){
+          if(sportsCheckBoxes[i].checked){
+            selectedSports.push(sportsCheckBoxes[i].value)
+          }
+        }
+
+        if(selectedSports.length > 0){
+          sportsResult.textContent = "Selected Sports: " + selectedSports
+        }else{
+          sportsResult.textContent = "No sports selected."
+        }
+      })
+
+      const vacationCheckBoxes = document.getElementsByName("vacation")
+      const displayVacationBtn = document.getElementById("displayVacationBtn")
+      const vacationResult = document.getElementById("vacationResult")
+
+      displayVacationBtn.addEventListener("click",function(){
+        const selectedVacation = [];
+
+        for(let i = 0; i < vacationCheckBoxes.length;i++){
+          if(vacationCheckBoxes[i].checked){
+            selectedVacation.push(vacationCheckBoxes[i].value)
+          }
+        }
+
+        if(selectedVacation.length > 0){
+          vacationResult.textContent = "Selected Vacation:" + selectedVacation
+        }else{
+          vacationResult.textContent = "No Vacation Selected"
+        }
+      })
+
+      const genresCheckBoxes = document.getElementsByName("movie")
+      const displayGenresBtn = document.getElementById("displayGenresBtn")
+      const genresResult = document.getElementById("genresResult")
+
+      displayGenresBtn.addEventListener("click",function(){
+        const selectedGenres = [];
+
+        for(let i = 0; i < genresCheckBoxes.length;i++){
+          if(genresCheckBoxes[i].checked){
+            selectedGenres.push(genresCheckBoxes[i].value)
+          }
+        }
+
+        if(selectedGenres.length > 0){
+          genresResult.textContent = "Selected Movie Genres:" + selectedGenres
+        }else{
+          genresResult.textContent = "No Movie Genres Selected"
+        }
+      })
+
+      const itemsCheckBoxes = document.getElementsByName("items")
+      const displayItemsBtn = document.getElementById("displayItemsBtn")
+      const itemsResult = document.getElementById("itemsResult")
+
+      displayItemsBtn.addEventListener("click",function(){
+        const selectedItems = [];
+
+        for(let i = 0; i < itemsCheckBoxes.length;i++){
+          if(itemsCheckBoxes[i].checked){
+            selectedItems.push(itemsCheckBoxes[i].value)
+          }
+        }
+
+        if(selectedItems.length > 0){
+          itemsResult.textContent = "Selected Menu Items:" + selectedItems
+        }else{
+          itemsResult.textContent = "No Menu Item Selected"
+        }
+      })
+
+
+      const fruitsCheckBoxes = document.getElementsByName("fruits")
+      const displayFruitsBtn = document.getElementById("displayFruitsBtn")
+      const fruitsResult = document.getElementById("fruitsResult")
+
+      displayFruitsBtn.addEventListener("click",function(){
+        const selectedFruits = [];
+
+        for(let i = 0; i < fruitsCheckBoxes.length;i++){
+          if(fruitsCheckBoxes[i].checked){
+            selectedFruits.push(fruitsCheckBoxes[i].value)
+          }
+        }
+
+        if(selectedFruits.length > 0){
+          fruitsResult.textContent = "Selected Fruits:" + selectedFruits
+        }else{
+          fruitsResult.textContent = "No Fruits Selected"
+        }
+      })
+    </script>
+  </body>
+</html>

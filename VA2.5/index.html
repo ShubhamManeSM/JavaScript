@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Vanila JS</title>
+  </head>
+  <body>
+    <label>Program 1: Select a music genre:</label>
+    <input type="radio" name="music" value="Pop"> Pop
+    <input type="radio" name="music" value="Rock"> Rock
+    <input type="radio" name="music" value="Hip-Hop"> Hip-Hop
+    <p id="musicResult"></p>
+
+    <br><br>
+
+    <label>Program 2: Choose a language preference:</label>
+    <input type="radio" name="language" value="English"> English
+    <input type="radio" name="language" value="Spanish"> Spanish
+    <input type="radio" name="language" value="French"> French
+    <p id="languageResult"></p>
+
+    <br><br>
+
+    <label>Program 3: Select a job role:</label>
+    <input type="radio" name="job" value="Developer"> Developer
+    <input type="radio" name="job" value="Designer"> Designer
+    <input type="radio" name="job" value="Manager"> Manager
+    <button id="jobBtn">Display Selected Job Role</button>
+    <p id="jobResult"></p>
+
+    <br><br>
+
+    <label>Program 4: Choose a favorite hobby:</label>
+    <input type="radio" name="hobby" value="Reading"> Reading
+    <input type="radio" name="hobby" value="Gardening"> Gardening
+    <input type="radio" name="hobby" value="Sports"> Sports
+    <button id="hobbyBtn">Display Selected Hobby</button>
+    <p id="hobbyResult"></p>
+
+    <br><br>
+
+    <label>Program 5: Select a clothing style:</label>
+    <input type="radio" name="clothingStyle" value="Casual"> Casual
+    <input type="radio" name="clothingStyle" value="Formal"> Formal
+    <input type="radio" name="clothingStyle" value="Sporty"> Sporty
+    <button id="clothingStyleBtn">Display Selected Style</button>
+    <p id="clothingStyleResult"></p>
+
+    <script>
+      const musicRadio = document.getElementsByName("music")
+      const musicResult = document.getElementById("musicResult")
+
+      for(let i = 0; i < musicRadio.length; i++){
+        musicRadio[i].addEventListener("change",function(){
+          const selectedMusic = document.querySelector('input[name="music"]:checked').value
+          musicResult.textContent = `Selected Genre: ${selectedMusic}`
+        })
+      }
+
+      const languageRadio = document.getElementsByName("language")
+      const languageResult = document.getElementById("languageResult")
+
+      for(let i = 0; i < languageRadio.length; i++){
+        languageRadio[i].addEventListener("change",function(){
+          const selectedLanguage = document.querySelector('input[name="language"]:checked').value
+          languageResult.textContent = `Selected Language: ${selectedLanguage}`
+        })
+      }
+
+      const jobRadio = document.getElementsByName("job")
+      const jobBtn = document.getElementById("jobBtn")
+      const jobResult = document.getElementById("jobResult")
+
+      jobBtn.addEventListener("click",function(){
+        const selectedJob = [];
+
+        for(let i = 0; i < jobRadio.length;i++){
+          if(jobRadio[i].checked){
+            selectedJob.push(jobRadio[i].value)
+          }
+        }
+        if(selectedJob.length > 0){
+          jobResult.textContent = "Selected Job Role: " + selectedJob
+        }else{
+          jobResult.textContent = "No Sports Selected"
+        }
+      })
+
+      const hobbyRadio = document.getElementsByName("hobby")
+      const hobbyBtn = document.getElementById("hobbyBtn")
+      const hobbyResult = document.getElementById("hobbyResult")
+
+      hobbyBtn.addEventListener("click",function(){
+        const selectedHobby = []
+
+        for(let i = 0; i < hobbyRadio.length;i++){
+          if(hobbyRadio[i].checked){
+            selectedHobby.push(hobbyRadio[i].value)
+          }
+        }
+        if(selectedHobby.length > 0){
+          hobbyResult.textContent = "Selected Hobby: " + selectedHobby
+        }else{
+          hobbyResult.textContent = "Please select a hobby"
+        }
+      })
+
+
+      const clothingStyleRadio = document.getElementsByName("clothingStyle")
+      const clothingStyleBtn = document.getElementById("clothingStyleBtn")
+      const clothingStyleResult = document.getElementById("clothingStyleResult")
+
+      clothingStyleBtn.addEventListener("click",function(){
+        const selectedClothingStyle = [];
+
+        for(let i = 0; i < clothingStyleRadio.length;i++){
+          if(clothingStyleRadio[i].checked){
+            selectedClothingStyle.push(clothingStyleRadio[i].value)
+          }
+        }
+        if(selectedClothingStyle.length > 0){
+          clothingStyleResult.textContent = "Selected Clothing Style: " + selectedClothingStyle
+        }else{
+          clothingStyleResult.textContent = "Please select a clothing style"
+        }
+      })
+    </script>
+  </body>
+</html>

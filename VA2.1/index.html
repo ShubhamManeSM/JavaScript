@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Vanila JS</title>
+  </head>
+  <body>
+    <label for="optInCheckbox">Select checkbox to opt-in</label>
+    <br>
+    <input type="checkbox" id="optInCheckbox">Opt-In
+    <p id="optInResult"></p>
+
+    <label for="">Choose Pizza Toppings:</label>
+    <br>
+    <input name="toppings" type="checkbox" value="Pepperoni">Pepperoni
+    <input name="toppings" type="checkbox" value="Olive">Olive
+    <input name="toppings" type="checkbox" value="Mushroom">Mushroom
+    <p id="toppingsResult"></p>
+
+    <label for="">Choose your preferred programming language:</label>
+    <br>
+    <input type="checkbox" name="languages" value="JavaScript">JavaScript <br>
+    <input type="checkbox" name="languages" value="Python">Python <br>
+    <input type="checkbox" name="languages" value="Java">Java <br>
+    <p id="languageResult"></p>
+
+
+    <script>
+      const optInCheckbox = document.getElementById("optInCheckbox")
+      const optInResult = document.getElementById("optInResult")
+
+      optInCheckbox.addEventListener("change",function(){
+        if(optInCheckbox.checked){
+          optInResult.textContent = "You are subscribed"
+        }else{
+          optInResult.textContent = ''
+        }
+      })
+
+      const toppingsCheckBoxes = document.getElementsByName("toppings")
+      const toppingsResult = document.getElementById("toppingsResult")
+
+      for(let i = 0; i < toppingsCheckBoxes.length;i++){
+        toppingsCheckBoxes[i].addEventListener("change",function(){
+          const selectedToppings = []
+
+          for(let j = 0; j < toppingsCheckBoxes.length;j++){
+            if(toppingsCheckBoxes[j].checked){
+              selectedToppings.push(toppingsCheckBoxes[j].value)
+            }
+          }
+          console.log(selectedToppings)
+
+          toppingsResult.textContent = `Selected toppings: ${selectedToppings.join(", ")}`
+        })
+      }
+
+
+      const languageCheckboxes = document.getElementsByName("languages")
+      const languageResult = document.getElementById("languageResult")
+
+      for(let i = 0; i < languageCheckboxes.length;i++){
+        languageCheckboxes[i].addEventListener("change",function(){
+          const selectedLanguages = []
+
+          for(let j = 0; j < languageCheckboxes.length;j++){
+            if(languageCheckboxes[j].checked){
+              selectedLanguages.push(languageCheckboxes[j].value)
+            }
+          }
+          languageResult.textContent = `Selected Languages: ${selectedLanguages.join(", ")}`
+        })
+      }
+    </script>
+  </body>
+</html>
