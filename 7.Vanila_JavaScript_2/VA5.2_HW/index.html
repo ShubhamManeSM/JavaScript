@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h1>Random User API</h1>
+      <button id="getRandomBtn" class="btn btn-info">Get Random User</button>
+      <div id="getRandomUser"></div>
+    </div>
+
+    <script>
+      const getRandomBtn = document.querySelector('#getRandomBtn')
+      const getRandomUser = document.querySelector('#getRandomUser')
+
+      const apiUrl = "https://randomuser.me/api/"
+
+      getRandomBtn.addEventListener("click", function(){
+        fetch(apiUrl)
+        .then(function responseHandler(response){
+          return response.json()
+        })
+        .then(function showData(data){
+          const user = data.results[0]
+          getRandomUser.innerHTML = `
+              <p><strong>Name:</strong> ${user.name.first} ${user.name.last}</p>
+              <p><strong>Email:</strong> ${user.email}</p>
+              <p><strong>City:</strong> ${user.location.city}</p>
+            `
+        })
+        .catch(function showError(error){
+          getRandomUser.textContent = "An error occured while fetching data."
+        })
+      })
+    </script>
+  </body>
+</html>
