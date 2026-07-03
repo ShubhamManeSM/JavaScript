@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>List of Movies</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg text-secondary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Movie Database</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="movies.html">Movies</a></li>
+                    <li class="nav-item"><a class="nav-link" href="report.html">Report</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div class="container mt-4">
+        <h2>Add a New Movie</h2>
+
+        <form>
+            <div class="mb-3">
+                <label for="titleInput">Title:</label>
+                <input type="text" id="titleInput" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="genreInput">Genre:</label>
+                <select id="genreInput" class="form-control" required>
+                    <option value="Action">Action</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Comedy">Comedy</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="releaseDateInput">Release Date:</label>
+                <input type="date" id="releaseDateInput" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="directorInput">Director:</label>
+                <input type="text" id="directorInput" class="form-control" required>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="addMovieBtn">Add Movie</button>
+        </form>
+
+        <section class="container mt-4">
+            <div id="movieList" class="row"></div>
+        </section>
+    </div>
+
+    <script>
+
+        const movies = [
+            { id: 1, title: "Movie 1", genre: "Action", releaseDate: "2023-01-15", director: "John Doe" },
+            { id: 2, title: "Movie 2", genre: "Drama", releaseDate: "2023-02-20", director: "Jane Smith" }
+        ];
+
+        const addMovieBtn = document.querySelector("#addMovieBtn");
+        const movieList = document.querySelector("#movieList");
+
+        // Render movie list
+        function updateMovieList(filteredMovies) {
+            movieList.innerHTML = '';
+            for (let i = 0; i < filteredMovies.length; i++) {
+                const col = document.createElement('div');
+                col.className = 'col-md-4';
+
+                const card = document.createElement('div');
+                card.className = 'card mb-3';
+
+                const cardHeader = document.createElement('div');
+                cardHeader.className = 'card-header';
+                const h4 = document.createElement('h4');
+                h4.textContent = filteredMovies[i].title;
+
+                cardHeader.appendChild(h4);
+
+                const cardBody = document.createElement('div');
+                cardBody.className = 'card-body';
+
+                const genre = document.createElement('p');
+                genre.className = 'card-text';
+                genre.innerHTML = `<strong>Genre:</strong> ${filteredMovies[i].genre}`;
+
+                const releaseDate = document.createElement('p');
+                releaseDate.className = 'card-text';
+                releaseDate.innerHTML = `<strong>Release Date:</strong> ${filteredMovies[i].releaseDate}`;
+
+                const director = document.createElement('p');
+                director.className = 'card-text';
+                director.innerHTML = `<strong>Director:</strong> ${filteredMovies[i].director}`;
+
+                const detailsLink = document.createElement('a')
+                detailsLink.href = `movieDetails.html?id=${filteredMovies[i].id}`
+                detailsLink.className = 'btn btn-primary'
+                detailsLink.textContent = `Details`
+
+                cardBody.appendChild(genre);
+                cardBody.appendChild(releaseDate);
+                cardBody.appendChild(director);
+                cardBody.appendChild(detailsLink)
+
+                card.appendChild(cardHeader);
+                card.appendChild(cardBody);
+
+                col.appendChild(card);
+                movieList.appendChild(col);
+            }
+        }
+
+        addMovieBtn.addEventListener("click", function () {
+            const title = document.querySelector("#titleInput").value;
+            const genre = document.querySelector("#genreInput").value;
+            const releaseDate = document.querySelector("#releaseDateInput").value;
+            const director = document.querySelector("#directorInput").value;
+
+            if (title && genre && releaseDate && director) {
+                const newMovieId = movies.length + 1;
+                const newMovie = {
+                    id: newMovieId,
+                    title: title,
+                    genre: genre,
+                    releaseDate: releaseDate,
+                    director: director
+                };
+
+                movies.push(newMovie);
+
+                updateMovieList(movies);
+            }
+        });
+
+        updateMovieList(movies);
+
+       
+
+    </script>
+
+    </body>
+</html>
