@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>GET and POST</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+  <h1>GET and POST</h1>
+
+  <h2>GET Request</h2>
+  <button id="getDataBtn" class="btn btn-primary mb-3">Get Data</button>
+  <div id="getList" class="mb-4"></div>
+  <div id="getResultContainer"></div>
+
+  <h2>POST Request</h2>
+  <form id="postForm" class="mb-3">
+    <label for="name">Name:</label><br />
+    <input id="name" class="form-control mb-2" required /><br />
+    <label for="message">Message:</label><br />
+    <textarea id="message" class="form-control mb-2" rows="2" required></textarea><br />
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+  <div id="postResultContainer" style="font-family: monospace;"></div>
+
+  <script>
+    const getDataBtn = document.querySelector("#getDataBtn");
+    const getList = document.querySelector("#getList");
+    const getResultContainer = document.querySelector("#getResultContainer");
+    const postForm = document.querySelector("#postForm");
+    const name = document.querySelector("#name");
+    const message = document.querySelector("#message");
+    const postResultContainer = document.querySelector("#postResultContainer");
+    const apiUrl = "https://posts-student-neog.replit.app/posts";
+
+    let lastAddedPostId = null;
+
+    getDataBtn.addEventListener("click", function () {
+      getList.innerHTML = "";
+      if (!lastAddedPostId) {
+        getResultContainer.textContent = "No post added yet.";
+        return;
+      }
+
+      fetch(apiUrl)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          const found = data.find(function (item) {
+            return item._id === lastAddedPostId;
+          });
+
+          if (found) {
+            const card = document.createElement("div");
+            card.className = "card p-3 mb-3";
+
+            const idElem = document.createElement("h5");
+            idElem.innerHTML = "Post ID: <b>" + found._id + "</b>";
+
+            const jsonElem = document.createElement("pre");
+            jsonElem.textContent = JSON.stringify(found);
+
+            card.appendChild(idElem);
+            card.appendChild(jsonElem);
+            getList.appendChild(card);
+            getResultContainer.textContent = "";
+          } else {
+            getResultContainer.textContent = "Post not found.";
+          }
+        })
+        .catch(function () {
+          getResultContainer.textContent = "An error occurred while getting the post.";
+        });
+    });
+
+    postForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const postData = {
+        name: name.value,
+        message: message.value
+      };
+
+      fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(postData)
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          if (data && data._id) {
+            lastAddedPostId = data._id;
+            postResultContainer.textContent = JSON.stringify(data);
+            postForm.reset();
+          } else {
+            postResultContainer.textContent = "Failed to add post.";
+          }
+        })
+        .catch(function () {
+          postResultContainer.textContent = "An error occurred while adding the post.";
+        });
+    });
+  </script>
+</body>
+</html>
