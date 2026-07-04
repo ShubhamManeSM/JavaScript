@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>ICC Player Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body class="bg-white">
+    
+    <header>
+      <nav class="navbar navbar-expand-lg text-secondary bg-white shadow-sm">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">ICC Player Management</a>
+    
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="players.html">Player List</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="addPlayers.html">Add Player</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Add Players</h1>
+
+            <div id="success" class="alert alert-success mt-3" role="alert" style="display: none;">
+              Player added successfully!
+            </div>
+
+            <form id="addPlayers">
+            
+            <label for="playerName">Player Full Name:</label><br>
+            <input type="text" class="form-control" id="playerName"><br>
+
+            <label for="birthDate">Date of Birth:</label><br>
+            <input type="date" class="form-control" id="birthDate"><br>
+
+            <label for="nationality">Nationality:</label><br>
+            <input type="text" class="form-control" id="nationality"><br>
+
+            <label for="birthPlace">Place of Birth:</label><br>
+            <input type="text" class="form-control" id="birthPlace"><br>
+
+            <label for="address">Contact Address:</label><br>
+            <textarea id="address" rows="5" cols="50" class="form-control"></textarea><br>
+
+            <label for="phoneNum">Phone Number:</label><br>
+            <input type="number" class="form-control" id="phoneNum"><br>
+
+            <label for="email">Email Address:</label><br>
+            <input type="email" class="form-control" id="email"><br>
+
+            <label for="playingRole">Playing Role:</label><br>
+            <select id="playingRole" class="mt-2">
+                <option value="Batsman">Batsman</option>
+                <option value="Bowler">Bowler</option>
+                <option value="All-Rounder">All-Rounder</option>
+            </select><br><br>
+
+            <label for="battingHand">Batting Hand:</label><br>
+            <select id="battingHand" class="mt-2">
+                <option value="Right Handed">Right Handed</option>
+                <option value="Left Handed">Left Handed</option>
+                <option value="Both">Both</option>
+            </select><br><br>
+
+            <label for="bowlingStyle">Bowling Style:</label><br>
+            <select id="bowlingStyle" class="mt-2">
+                <option value="Right-Arm Fast">Right-Arm Fast</option>
+                <option value="Left-Arm Fast">Left-Arm Fast</option>
+                <option value="Right-Arm Medium">Right-Arm Medium</option>
+                <option value="Left-Arm Medium">Left-Arm Medium</option>
+                <option value="Right-Arm Spin (Off-Spin)">Right-Arm Spin (Off-Spin)</option>
+                <option value="Left-Arm Spin (Off-Spin)">Left-Arm Spin (Off-Spin)</option>
+            </select><br><br>
+
+            <button id="addPlayerBtn" class="btn btn-primary mb-2 mt-1">Add Players</button>
+          </form>
+
+        </div>
+    </main>
+
+    <script>
+        const addPlayers = document.querySelector("#addPlayers")
+        const playerName = document.querySelector("#playerName")
+        const birthDate = document.querySelector("#birthDate")
+        const nationality = document.querySelector("#nationality")
+        const birthPlace = document.querySelector("#birthPlace")
+        const address = document.querySelector("#address")
+        const phoneNum = document.querySelector("#phoneNum")
+        const email = document.querySelector("#email")
+        const playingRole = document.querySelector("#playingRole")
+        const battingHand = document.querySelector("#battingHand")
+        const bowlingStyle = document.querySelector("#bowlingStyle")
+        const apiUrl = 'https://players-backend-student-neog-ca.replit.app/players'
+
+        addPlayers.addEventListener("submit",function(event){
+          event.preventDefault()
+
+          const playerData = {
+            fullName: playerName.value,
+            birthDate: birthDate.value,
+            nationality: nationality.value,
+            birthPlace: birthPlace.value,
+            address: address.value,
+            phoneNum: phoneNum.value,
+            email: email.value,
+            playingRole: playingRole.value,
+            battingHand: battingHand.value,
+            bowlingStyle: bowlingStyle.value
+          }
+
+          fetch(apiUrl, {
+            method: "POST",
+            body: JSON.stringify(playerData),
+            headers:{
+              'Content-Type' : 'application/json'
+            }
+          })
+          .then(function(response){
+            return response.json()
+          })
+          .then(function(data){
+            if(data){
+              success.style.display = "block"
+            }
+          })
+          .catch(function(){
+            playerData.textContent = "An error occurred while fetching data."
+          })
+        })
+    </script>
+  </body>
+</html>

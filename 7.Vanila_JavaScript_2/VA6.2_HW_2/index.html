@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      #sending{
+        display: none;
+      }
+      #success{
+        display: none;
+        color: green;
+      }
+    </style>
+  </head>
+  <body class="container py-4">
+    <h1>Add Employee</h1>
+
+    <form id="addEmployee">
+      <label for="name">Name:</label><br>
+      <input type="text" id="name"><br><br>
+      <label for="age">Age:</label><br>
+      <input type="number" id="age"><br><br>
+      <label for="position">Position:</label><br>
+      <input type="text" id="position"><br><br>
+      <label for="department">Department:</label><br>
+      <input type="text" id="department"><br><br>
+      <label for="salary">Salary:</label><br>
+      <input type="number" id="salary"><br><br>
+      <button type="submit" class="btn btn-primary">Add Employee</button>
+    </form>
+    <div id="sending">Sending Data</div>
+    <div id="success">Employee added successfully!</div>
+
+
+    <script>
+      const addEmployee = document.querySelector("#addEmployee")
+      const name = document.querySelector("#name")
+      const age = document.querySelector("#age")
+      const position = document.querySelector("#position")
+      const department = document.querySelector("#department")
+      const salary = document.querySelector("#salary")
+      const sendingContainer = document.querySelector("#sending")
+      const successContainer = document.querySelector("#success")
+      const apiUrl = 'https://employee-add-backend-Student-neoG-Ca.replit.app/employee'
+
+      addEmployee.addEventListener("submit",function(event){
+        event.preventDefault()
+        sendingContainer.style.display = "block"
+
+        const employeeData = {
+          name:name.value,
+          age:age.value,
+          position:position.value,
+          department: department.value,
+          salary: salary.value
+        }
+
+        fetch(apiUrl, {
+          method: "POST",
+          body: JSON.stringify(employeeData),
+          headers: {
+            'content-Type' : 'application/json'
+          }
+        }).then(function(response){
+          return response.json()
+        })
+        .then(function(data){
+          if(data){
+            sendingContainer.style.display = "none"
+            successContainer.style.display = "block"
+          }
+        })
+      })
+    </script>
+  </body>
+</html>

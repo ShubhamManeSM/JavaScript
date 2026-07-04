@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body class="bg-light">
+
+    <header>
+      <nav class="navbar navbar-expand-lg text-secondary bg-white shadow-sm">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">Student Management</a>
+    
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="student.html">Student</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="addStudent.html">Add Student</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    
+    <div class="container mb-3">
+      <h1 class="mt-3">Student List</h1>
+
+      <label for="gender" class="form-label mt-3">Filter by Gender:</label>
+      <select id="gender" class="form-select mt-1" required>
+          <option value="All">All</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+      </select>
+      <ul class="list-group" id="studentList"></ul>
+    </div>
+
+
+    
+     <script>
+  const apiUrl = 'https://student-data-Student-neoG-Ca.replit.app/students'
+  const studentList = document.querySelector("#studentList")
+  const genderSelect = document.querySelector("#gender")
+  let allStudents = []
+
+  function renderStudents(data) {
+    studentList.innerHTML = ""
+
+    if (data.length === 0) {
+      studentList.innerHTML = "<li class='list-group-item'>No students found.</li>"
+      return
+    }
+
+    for (let i = 0; i < data.length; i++) {
+      const student = data[i]
+      const liElement = document.createElement('li')
+      liElement.className = "list-group-item mt-2"
+      liElement.innerHTML = `
+        ${student.name} - Grade: ${student.grade} - Age: ${student.age} - Attendance: ${student.attendance} - Gender: ${student.gender} - Marks: ${student.marks}
+        <button class="btn btn-danger float-end mt-1" data-id="${student._id}">Delete</button>
+      `
+      studentList.appendChild(liElement)
+    }
+
+    const deleteButtons = document.querySelectorAll('[data-id]')
+    for (let i = 0; i < deleteButtons.length; i++) {
+      deleteButtons[i].addEventListener("click", function (event) {
+        const studentId = event.target.getAttribute('data-id')
+        const apiDeleteUrl = `${apiUrl}/${studentId}`
+        fetch(apiDeleteUrl, {
+          method: "DELETE"
+        })
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (data) {
+          if (data) {
+            fetchData()
+          }
+        })
+      })
+    }
+  }
+
+  function applyFilter() {
+    const selectedGender = genderSelect.value
+    if (selectedGender === "All") {
+      renderStudents(allStudents)
+    } else {
+      const filtered = []
+      for (let i = 0; i < allStudents.length; i++) {
+        if (allStudents[i].gender === selectedGender) {
+          filtered[filtered.length] = allStudents[i]
+        }
+      }
+      renderStudents(filtered)
+    }
+  }
+
+  function fetchData() {
+    studentList.textContent = "Loading..."
+    fetch(apiUrl)
+      .then(function (response) {
+        return response.json()
+      })
+      .then(function (data) {
+        if (data) {
+          allStudents = data
+          applyFilter()
+        }
+      })
+      .catch(function () {
+        studentList.textContent = "An error occurred while fetching data."
+      })
+  }
+
+  genderSelect.addEventListener("change", applyFilter)
+
+  fetchData()
+</script>
+
+
+</body>
+</html>

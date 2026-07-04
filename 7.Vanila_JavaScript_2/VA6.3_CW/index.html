@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="container py-4">
+    <h1>Student List</h1>
+    <ul id="studentList" class="row"></ul>
+    <div id="successMsg"></div>
+
+    <script>
+      const apiUrl = "https://student-management-student-neog.replit.app/students"
+      const studentList = document.querySelector("#studentList")
+      const successMsg = document.querySelector("#successMsg")
+
+      function fetchData(){
+        studentList.textContent = "Loading..."
+        fetch(apiUrl)
+        .then(function(response){
+          return response.json()
+        })
+        .then(function(data){
+          if(data){
+            studentList.textContent = ""
+            for(let i = 0; i < data.length; i++){
+            const liElements = document.createElement('li')
+            liElements.className = "col-md-12 my-2"
+            liElements.innerHTML = `${data[i].name} - Age: ${data[i].age} - Grade: ${data[i].grade} <button class="btn btn-danger float-end" data-id="${data[i]._id}" id="deleteBtn">Delete</button>`
+            studentList.appendChild(liElements)
+          }
+          }
+          const deleteButtons = document.querySelectorAll('#deleteBtn')
+          for(let i = 0; i < deleteButtons.length; i++){
+            deleteButtons[i].addEventListener("click",function(event){
+              const studentId = event.target.getAttribute('data-id')
+              const apiDeleteUrl = `https://student-management-student-neog.replit.app/students/${studentId}`
+              fetch(apiDeleteUrl, {
+                method: "DELETE"
+              }).then(function(response){
+                return response.json()
+              }).then(function(data){
+                if(data){
+                  successMsg.textContent = "Student details deleted successfully."
+                  fetchData()
+                }
+              })
+            })
+          }
+        })
+        .catch(function(error){
+          studentList.textContent = "An error occured while fetching data."
+        })
+      }
+
+      fetchData()
+    </script>
+  </body>
+</html>

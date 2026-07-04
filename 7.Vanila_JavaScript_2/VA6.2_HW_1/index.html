@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      #sending{
+        display: none;
+      }
+      #success{
+        display: none;
+        color: green;
+      }
+    </style>
+  </head>
+  <body class="container mt-4">
+    <h1>Add Movie</h1>
+    <form id="addMovie">
+      <label for="title">Title:</label><br>
+      <input type="text" id="title"><br><br>
+      <label for="year">Release Year:</label><br>
+      <input type="number" id="year"><br><br>
+      <label for="genre">Genre:</label><br>
+      <select id="genre">
+        <option value="Action">Action</option>
+        <option value="Drama">Drama</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Romance">Romance</option>
+      </select><br><br>
+      <label for="director">Director:</label><br />
+    <input id="director"/><br/><br>
+
+      <label for="actors">Actors:</label><br />
+    <input id="actors"/><br/><br>
+
+    <label for="language">Language:</label><br />
+    <input id="language"/><br/><br>
+
+    <label for="country">Country:</label><br />
+    <select id="country">
+      <option>India</option>
+      <option>USA</option>
+      <option>China</option>
+    </select><br/><br>
+
+    <label for="rating">Rating:</label><br/>
+    <input type="number" id="rating" value="0" /><br/><br>
+
+    <label for="plot">Plot:</label><br/>
+    <textarea id="plot"></textarea><br/><br>
+
+    <label for="awards">Awards:</label><br />
+    <input id="awards"/><br/><br>
+
+    <label for="poster">Poster URL:</label><br />
+    <input id="poster"/><br/><br>
+
+    <label for="trailer">Trailer URL:</label><br />
+    <input id="trailer"/><br/><br>
+
+    <button type="submit" class="btn btn-primary">Add Movie</button>
+    </form>
+
+    <div id="sending">Sending Data</div>
+    <div id="success">Movie Added Successfully</div>
+
+    <script>
+      const addMovie = document.querySelector("#addMovie")
+      const title = document.querySelector("#title")
+      const year = document.querySelector("#year")
+      const genre = document.querySelector("#genre")
+      const director = document.querySelector("#director")
+      const actors = document.querySelector("#actors")
+      const language = document.querySelector("#language")
+      const country = document.querySelector("#country")
+      const rating = document.querySelector("#rating")
+      const plot = document.querySelector("#plot")
+      const awards = document.querySelector("#awards")
+      const poster = document.querySelector("#poster")
+      const trailer = document.querySelector("#trailer")
+      const sendingContainer = document.querySelector("#sending")
+      const successContainer = document.querySelector("#success")
+      const apiUrl = 'https://va-5-assignment-express-student-neog.replit.app/movies'
+
+      addMovie.addEventListener("submit",function(event){
+        event.preventDefault()
+        sendingContainer.style.display = "block"
+
+        const movieData = {
+          title: title.value,
+          year: year.value,
+          genre: genre.value,
+          director: director.value,
+          actors: actors.value,
+          language: language.value,
+          country: country.value,
+          rating: rating.value,
+          plot: plot.value,
+          awards: awards.value,
+          poster: poster.value,
+          trailer: trailer.value
+        }
+        fetch(apiUrl, {
+          method: "POST",
+          body: JSON.stringify(movieData),
+          headers:{
+            'content-Type' : 'application/json'
+          }
+        }).then(function(response){
+          return response.json()
+        })
+        .then(function(data){
+          if(data){
+            sendingContainer.style.display = "none"
+            successContainer.style.display = "block"
+          }
+        })
+      })
+    </script>
+  </body>
+</html>

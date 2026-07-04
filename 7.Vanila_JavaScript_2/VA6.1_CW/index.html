@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+  </head>
+  <body>
+    <h1>Student List</h1>
+    <ul id="studentList"></ul>
+
+    <script>
+      const apiUrl = "https://student-management-student-neog.replit.app/students"
+      const studentList = document.querySelector("#studentList")
+
+      function fetchData(){
+        studentList.textContent = "Loading..."
+        fetch(apiUrl)
+        .then(function(response){
+          return response.json()
+        })
+        .then(function(data){
+          if(data){
+            studentList.textContent = ""
+            for(let i = 0; i < data.length; i++){
+            const liElements = document.createElement('li')
+            liElements.textContent = `${data[i].name} - ${data[i].grade}`
+            studentList.appendChild(liElements)
+          }
+          }
+        })
+        .catch(function(error){
+          studentList.textContent = "An error occured while fetching data."
+        })
+      }
+
+      fetchData()
+    </script>
+  </body>
+</html>
